@@ -3,8 +3,6 @@
 
 #include "biosensor_information.h"
 
-void calculate_explicitly(struct BiosensorInformation *);
+void calculate_explicitly(struct bio_params *bio_info);
 
 #endif
-
-

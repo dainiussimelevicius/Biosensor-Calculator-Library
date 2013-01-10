@@ -4,62 +4,64 @@
 
 int main()
 {
-  struct BiosensorInformation *biosensorInformation;	
-	
-  biosensorInformation = (struct BiosensorInformation *) malloc(sizeof(struct BiosensorInformation));
-  biosensorInformation->explicitScheme = 0;
-  biosensorInformation->substrateInhibition = 1;
-  biosensorInformation->productInhibition = 1;
-  //[s^-1]
-  biosensorInformation->k2 = 1;
-  //[mol/l] -> [mol/cm^3]
-  biosensorInformation->kM = 0.01 * 1e-3;
-  //[mol/l] -> [mol/cm^3]
-  biosensorInformation->kS = 0.001 * 1e-3;
-  //[mol/l] -> [mol/cm^3]
-  biosensorInformation->kP = 0.001 * 1e-3;
-  //[s]
-  biosensorInformation->timeStep = 1e-3;
-  biosensorInformation->N = 200;
-  biosensorInformation->responseTimeMethod = MIN_TIME;
-  //[s]
-  biosensorInformation->minTime = 200;
-  //[s]
-  biosensorInformation->responseTime = 0;
-  biosensorInformation->outputFileName = "output.dat";
-  biosensorInformation->ne = 1;
-  //[mol/l] -> [mol/cm^3] 4e-5; 
-  biosensorInformation->s0 = 0.04 * 1e-3;
-  //[mol/l] -> [mol/cm^3]
-  biosensorInformation->p0 = 0 * 1e-3;
-  biosensorInformation->noOfBiosensorLayers = 2;
-  biosensorInformation->biosensorLayers = (struct LayerInformation *) malloc(sizeof(struct LayerInformation) * 2);
+	struct bio_params *bio_info;
 
-  //Užpildoma sluoksnių informacija
-  // 0
-  biosensorInformation->biosensorLayers[0].enzymeLayer = 1;
-  //[um^2/s] -> [cm^2/s]
-  biosensorInformation->biosensorLayers[0].Ds = 100 * 1e-8;
-  //[um^2/s] -> [cm^2/s]
-  biosensorInformation->biosensorLayers[0].Dp = 100 * 1e-8;
-  //[um] -> [cm]
-  biosensorInformation->biosensorLayers[0].d = 10 * 1e-4;
-  //[mol/l] -> [mol/cm^3]
-  biosensorInformation->biosensorLayers[0].e0 = 0.01 * 1e-3;
-  
-  // 1  
-  biosensorInformation->biosensorLayers[1].enzymeLayer = 0;
-  //[um^2/s] -> [cm^2/s]
-  biosensorInformation->biosensorLayers[1].Ds = 200 * 1e-8;
-  //[um^2/s] -> [cm^2/s]
-  biosensorInformation->biosensorLayers[1].Dp = 200 * 1e-8;
-  //[um] -> [cm]
-  biosensorInformation->biosensorLayers[1].d = 300 * 1e-4;
-  //[mol/l] -> [mol/cm^3]
-  biosensorInformation->biosensorLayers[1].e0 = 0 * 1e-3; 
-  
-  calculate(biosensorInformation);
-    
-  return 0;	
+	bio_info = malloc(sizeof(*bio_info));
+	bio_info->explicit_scheme = 0;
+	bio_info->subs_inh = 1;
+	bio_info->prod_inh = 1;
+	//[s^-1]
+	bio_info->k2 = 1;
+	//[mol/l] -> [mol/cm^3]
+	bio_info->km = 0.01 * 1e-3;
+	//[mol/l] -> [mol/cm^3]
+	bio_info->ks = 0.001 * 1e-3;
+	//[mol/l] -> [mol/cm^3]
+	bio_info->kp = 0.001 * 1e-3;
+	//[s]
+	bio_info->dt = 1e-3;
+	bio_info->n = 200;
+	bio_info->resp_t_meth = MIN_TIME;
+	//[s]
+	bio_info->min_t = 200;
+	//[s]
+	bio_info->resp_t = 0;
+	bio_info->out_file_name = "output.dat";
+	bio_info->ne = 1;
+	//[mol/l] -> [mol/cm^3] 4e-5;
+	bio_info->s0 = 0.04 * 1e-3;
+	//[mol/l] -> [mol/cm^3]
+	bio_info->p0 = 0 * 1e-3;
+	bio_info->layer_count = 2;
+	bio_info->layers = malloc(sizeof(*(bio_info->layers)) * bio_info->layer_count);
+
+	//Užpildoma sluoksnių informacija
+	// 0
+	bio_info->layers[0].enz_layer = 1;
+	//[um^2/s] -> [cm^2/s]
+	bio_info->layers[0].Ds = 100 * 1e-8;
+	//[um^2/s] -> [cm^2/s]
+	bio_info->layers[0].Dp = 100 * 1e-8;
+	//[um] -> [cm]
+	bio_info->layers[0].d = 10 * 1e-4;
+	//[mol/l] -> [mol/cm^3]
+	bio_info->layers[0].e0 = 0.01 * 1e-3;
+
+	// 1
+	bio_info->layers[1].enz_layer = 0;
+	//[um^2/s] -> [cm^2/s]
+	bio_info->layers[1].Ds = 200 * 1e-8;
+	//[um^2/s] -> [cm^2/s]
+	bio_info->layers[1].Dp = 200 * 1e-8;
+	//[um] -> [cm]
+	bio_info->layers[1].d = 300 * 1e-4;
+	//[mol/l] -> [mol/cm^3]
+	bio_info->layers[1].e0 = 0 * 1e-3;
+
+	calculate(bio_info);
+
+	free(bio_info->layers);
+	free(bio_info);
+
+	return 0;
 }
-
