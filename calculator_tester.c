@@ -7,7 +7,7 @@ int main()
   struct BiosensorInformation *biosensorInformation;	
 	
   biosensorInformation = (struct BiosensorInformation *) malloc(sizeof(struct BiosensorInformation));
-  biosensorInformation->explicitScheme = 1;
+  biosensorInformation->explicitScheme = 0;
   biosensorInformation->substrateInhibition = 1;
   biosensorInformation->productInhibition = 1;
   //[s^-1]
@@ -19,7 +19,7 @@ int main()
   //[mol/l] -> [mol/cm^3]
   biosensorInformation->kP = 0.001 * 1e-3;
   //[s]
-  biosensorInformation->timeStep = 1e-5;
+  biosensorInformation->timeStep = 1e-3;
   biosensorInformation->N = 200;
   biosensorInformation->responseTimeMethod = MIN_TIME;
   //[s]
