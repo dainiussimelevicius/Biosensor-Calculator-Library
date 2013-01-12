@@ -5,7 +5,7 @@
 #include "utils.h"
 #include "constants.h"
 
-void calculate_explicitly(struct bio_params *bio_info)
+void calculate_explicitly(struct bio_params *bio_info, void *ptr, void (*callback_crunched)(void *, int))
 {
 	int a;
 
@@ -183,6 +183,8 @@ void calculate_explicitly(struct bio_params *bio_info)
 			output_file = fopen(out_file_name, "a");
 			fprintf(output_file, "%e %e\n", i, execution_time);
 			fclose(output_file);
+			if (callback_crunched != NULL)
+				callback_crunched(ptr, (int)(execution_time + 0.5));
 		}
 
 		//Nustatoma ar tęsti simuliaciją
@@ -209,6 +211,8 @@ void calculate_explicitly(struct bio_params *bio_info)
 	output_file = fopen(out_file_name, "a");
 	fprintf(output_file, "%e %e\n", i, execution_time);
 	fclose(output_file);
+	if (callback_crunched != NULL)
+		callback_crunched(ptr, (int)(execution_time + 0.5));
 
 	//Atlaisvinama atmintis
 	free(current_s);

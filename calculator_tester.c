@@ -2,6 +2,11 @@
 #include "biosensor_calculator.h"
 #include "biosensor_information.h"
 
+void callback_crunched(void *ptr, int time)
+{
+	printf("%ds simulated\n", time);
+}
+
 int main()
 {
 	struct bio_params *bio_info;
@@ -58,7 +63,7 @@ int main()
 	//[mol/l] -> [mol/cm^3]
 	bio_info->layers[1].e0 = 0 * 1e-3;
 
-	calculate(bio_info);
+	calculate(bio_info, NULL, &callback_crunched);
 
 	free(bio_info->layers);
 	free(bio_info);
