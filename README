@@ -1,3 +1,9 @@
+Biosensor-Calculator-Library yra dinaminės bibliotekos, atliekančios amperometrinio biojutiklio veikimo simuliaciją, projektas.
+
+Dinaminę biblioteką libbiosensor_calculator.so galima sukompiliuoti su programėle make.
+
+Programa, naudojanti dinaminę biblioteką libbiosensor_calculator.so, turi kviesti funkciją void calculate(struct bio_params *bio_info, void *ptr, void (*callback_crunched)(void *, int)). Pirmasis funkcijos parametras bio_info yra rodyklė į duomenų struktūrą, kuria bibliotekai perduodami biojutiklio parametrai. Šios duomenų struktūros tipas yra deklaruotas faile biosensor_information.h. Antrasis ir trečiasis funkcijos parametrai, skirti grįžtamajam ryšiui. Trečiasis parametras callback_crunched yra rodyklė į grįžtamojo ryšio funkciją, su kuria biblioteka gali informuoti kviečiančiąją programą apie skaičiavimų eigą, grąžindama susimuliuotą biojutiklio veikimo laiką sekundėmis. Antrasis parametras ptr gali būti naudingas tuo atveju kai biblioteką naudojanti programa yra sukurta, naudojant objektiškai orientuotą programavimo kalbą. Objekto metodas negali būti grįžtamojo ryšio funkcija, nebent tai būtų statinis metodas. Tuomet per parametrą ptr galima perduoti rodyklę į klasės instanciją ir ši rodyklė bus grąžinta per grįžtamojo ryšio funkciją į kviečiančiąją programą.
+
 Rezultatai į failą išvedami dviem stulpeliais atskirtais tarpo simboliu.
 Pirmajame stulpelyje išvedamas biojutiklio srovės tankis [A/cm^2].
 Antrajame stulpelyje išvedamas laikas [s].
