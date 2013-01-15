@@ -184,7 +184,7 @@ void calculate_explicitly(struct bio_params *bio_info, void *ptr, void (*callbac
 			fprintf(output_file, "%e %e\n", i, execution_time);
 			fclose(output_file);
 			if (callback_crunched != NULL)
-				callback_crunched(ptr, (int)(execution_time + 0.5));
+				callback_crunched(ptr, (int) execution_time);
 		}
 
 		//Nustatoma ar tęsti simuliaciją
@@ -212,7 +212,7 @@ void calculate_explicitly(struct bio_params *bio_info, void *ptr, void (*callbac
 	fprintf(output_file, "%e %e\n", i, execution_time);
 	fclose(output_file);
 	if (callback_crunched != NULL)
-		callback_crunched(ptr, (int)(execution_time + 0.5));
+		callback_crunched(ptr, (int) execution_time);
 
 	//Atlaisvinama atmintis
 	free(current_s);
