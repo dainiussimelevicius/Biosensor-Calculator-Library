@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include "biosensor_calculator.h"
 #include "biosensor_information.h"
